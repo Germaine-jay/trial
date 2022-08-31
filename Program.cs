@@ -1,110 +1,60 @@
-﻿// // cypher code
-string p = @"a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
-string m = (@"!,@,#,$,%,^,&,*,(,),_,+,-,?,|,`,/,},{,],[,>,<,~,=,\");
+﻿public class Germaine
+{
+    static object Encode(string h, string c, string n){
+    string s = "";
 
+    string[] alpha = h.Split(',');
+    string[] code = c.Split(',');
 
-// string[] alpha = p.Split(',');
-// string[] code = m.Split(',');
+    var encryp = new Dictionary<string,string>();
 
-// var encryp = new Dictionary<string,string>();
+    for(int i=0; i<code.Length; i++){
+        encryp.Add(alpha[i],code[i]);
+    }  
 
-// for(int i=0; i<code.Length; i++){
-//     encryp.Add(alpha[i],code[i]);
-// }
-
-// string n = "germaine is a good programmer";
-// string s = "";
-
-// string n1 = "&%}-!(?% ({ ! @!$ `}|&}!--%}";
-// string o = "";
-
-// foreach(var i in n){
-//     if(char.IsWhiteSpace(i))
-//     {
-//         s += i;
-//     }
-
-//     foreach(var k in encryp )
-//     {
-//     if(k.Key.Contains(i))
-//     {
-//         s += k.Value;
-//     }
-//     }
-// }
-
-
-// foreach(var c in n1){
-//     if(char.IsWhiteSpace(c))
-//     {
-//         o += c;
-//     }
-
-//     foreach(var k in encryp )
-//     {
-//     if(k.Value.Contains(c))
-//     {
-//         o += k.Key;
-//     }
-//     }
-// }
-
-// Console.WriteLine(s);
-// Console.WriteLine(o);
-
-//ANOTHER METHOD OF WRITING THE CYPHER CODE
-
-string[] alpha = p.Split(',');
-string[] code = m.Split(',');
-
-var encryp = new Dictionary<string,string>();
-
-for(int i=0; i<code.Length; i++){
-    encryp.Add(alpha[i],code[i]);
+    foreach(var i in n){
+        if(char.IsWhiteSpace(i))
+            {s += i;}
+    
+    foreach(var k in encryp ){
+        if(k.Key.Contains(i))
+            {s += k.Value;}
+        }
+    }
+        return s;
 }
 
-string n = "the quick brown fox";
-string s = "";
+    static object Decode(string h, string c, string n){
+    string o = "";
 
-string n1 = "&%}-!(?% ({ ! &||$ `}|&}!--%}";
-string o = "";
+    string[] alpha = h.Split(',');
+    string[] code = c.Split(',');
 
-int r =0;
+    var encryp = new Dictionary<string,string>();
 
-for(int i=0;i<n.Length;i++){
-        if(char.IsWhiteSpace(n[i]))
-        {
-            s += n[i];
-            r++;
+    for(int i=0; i<code.Length; i++){
+        encryp.Add(alpha[i],code[i]);
+    }  
+
+    foreach(var i in n){
+        if(char.IsWhiteSpace(i))
+            {o += i;}
+
+    foreach(var k in encryp ){
+        if(k.Value.Contains(i))
+            {o += k.Key;}
         }
-        if(encryp.ContainsKey(n[i].ToString()))
-        {
-            foreach(var k in encryp)
-            {
-            if(k.Key.Contains(n[i])){
-            s += k.Value;
-                }
-            }
-        }
+    }
+        return o;
 }
 
-
-for(int i=0;i<n1.Length;i++){
-        if(char.IsWhiteSpace(n1[i]))
-        {
-            o += n1[i];
-            r++;
-        }
-        if(encryp.ContainsValue(n1[i].ToString()))
-        {
-            foreach(var k in encryp)
-            {
-            if(k.Value.Contains(n1[i])){
-            o += k.Key;
-                }
-            }
-        }
+    static void Main(string[] args)
+    {
+        string p = (@"a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z");
+        string m = (@"!,@,#,$,%,^,&,*,(,),_,+,-,?,|,`,/,},{,],[,>,<,~,=,\");
+        var Encoded = Encode(p,m,"the boy is good");
+        var decoded = Decode(p,m,"]*% @|= ({ &||$");
+        Console.WriteLine(Encoded);
+        Console.WriteLine(decoded);
+    }
 }
-
-Console.WriteLine(s);
-Console.WriteLine(o);
